@@ -70,7 +70,7 @@ This project was developed as a *professional OOP-based system* that:
 - Zara Arshad  
 - Laraib Zahoor  
 
-## 🛠 How to Run
+##  How to Run
 
 ###  Dev C++
 1. Open .cpp files in Dev C++
