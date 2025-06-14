@@ -327,4 +327,317 @@ void displayLastTransactions(int accNo) {
     }
     cout << "------------------------------------------------------------\n";
 }
+int generateEmployeeID() {
+    ifstream inFile("employees.txt");
+    int maxID = 100;
+    if (!inFile.is_open()) {
+        return maxID + 1;
+    }
+
+    string line;
+    getline(inFile, line); // Skip header
+    while (getline(inFile, line)) {
+        if (line.empty()) continue;
+        Employee emp = Employee::fromString(line);
+        if (emp.getEmpID() > maxID) {
+            maxID = emp.getEmpID();
+        }
+    }
+    inFile.close();
+    return maxID + 1;
+}
+
+vector<Employee> loadAllEmployees() {
+    vector<Employee> emps;
+    ifstream inFile("employees.txt");
+    if (!inFile.is_open()) return emps;
+
+    string line;
+    getline(inFile, line); // Skip header
+    while (getline(inFile, line)) {
+        if (line.empty()) continue;
+        Employee emp = Employee::fromString(line);
+        // Only add valid employees
+        if (emp.getEmpID() != 0) {
+            emps.push_back(emp);
+        }
+    }
+    inFile.close();
+    return emps;
+}
+
+void saveAllEmployees(const vector<Employee>& emps) {
+    ofstream outFile("employees.txt", ios::trunc);
+    outFile << "EmployeeID|Name|Position|Salary\n";
+    size_t i = 0;
+    while (i < emps.size()) {
+        outFile << emps[i].toString() << "\n";
+        i++;
+    }
+    outFile.close();
+}
+
+// =========================
+// BANK SYSTEM CLASS
+// =========================
+class BankSystem {
+private:
+    Admin admin;
+
+    // ---------- Admin Functions ----------
+    void addCustomer() {
+        int accNo = generateAccountNumber();
+        string name;
+        int pin;
+        double initBalance;
+
+        cout << "\nEnter customer name: ";
+        cin.ignore();
+        getline(cin, name);
+        cout << "Set a numeric PIN (4 digits): ";
+        cin >> pin;
+        cout << "Enter initial deposit amount (PKR): ";
+        cin >> initBalance;
+
+        Account newAcc(accNo, name, pin, initBalance);
+        vector<Account> accounts = loadAllAccounts();
+        accounts.push_back(newAcc);
+        saveAllAccounts(accounts);
+
+        cout << "\n ? Customer added with Account Number: " << accNo << "\n";
+    }
+
+    void viewAllCustomers() {
+        vector<Account> accounts = loadAllAccounts();
+        if (accounts.empty()) {
+            cout << "\nNo customer accounts found.\n";
+            return;
+        }
+
+        cout << "\n----- All Customer Accounts -----\n";
+        size_t i = 0;
+        while (i < accounts.size()) {
+            accounts[i].display();
+            i++;
+        }
+    }
+
+    void modifyCustomer() {
+        int accNo;
+        cout << "\nEnter Account Number to modify: ";
+        cin >> accNo;
+
+        vector<Account> accounts = loadAllAccounts();
+        bool found = false;
+        size_t idx = 0;
+        while (idx < accounts.size()) {
+            if (accounts[idx].getAccountNumber() == accNo) {
+                found = true;
+                string newName;
+                int newPin;
+                double newBalance;
+
+                cout << "\nCurrent Name: " << accounts[idx].getName() << "\n";
+                cout << "Enter new name: ";
+                cin.ignore();
+                getline(cin, newName);
+                cout << "Enter new PIN (4 digits): ";
+                cin >> newPin;
+                cout << "Enter new balance (PKR): ";
+                cin >> newBalance;
+
+                accounts[idx].setName(newName);
+                accounts[idx].setPin(newPin);
+                accounts[idx].setBalance(newBalance);
+                saveAllAccounts(accounts);
+                cout << "\n ? Account updated successfully.\n";
+                break;
+            }
+            idx++;
+        }
+        if (!found) {
+            cout << "\n ? Account not found.\n";
+        }
+    }
+
+    void resetCustomerPIN() {
+        int accNo;
+        cout << "\nEnter Account Number to reset PIN: ";
+        cin >> accNo;
+
+        vector<Account> accounts = loadAllAccounts();
+        bool found = false;
+        size_t idx = 0;
+        while (idx < accounts.size()) {
+            if (accounts[idx].getAccountNumber() == accNo) {
+                found = true;
+                int newPin;
+                cout << "Enter new PIN (4 digits): ";
+                cin >> newPin;
+                accounts[idx].setPin(newPin);
+                saveAllAccounts(accounts);
+                cout << "\n ? PIN reset successfully.\n";
+                break;
+            }
+            idx++;
+        }
+        if (!found) {
+            cout << "\n ? Account not found.\n";
+        }
+    }
+
+    void deleteCustomer() {
+        int accNo;
+        cout << "\nEnter Account Number to delete: ";
+        cin >> accNo;
+
+        vector<Account> accounts = loadAllAccounts();
+        bool found = false;
+        size_t i = 0;
+        while (i < accounts.size()) {
+            if (accounts[i].getAccountNumber() == accNo) {
+                found = true;
+                logDeletedAccount(accNo, accounts[i].getName());
+                accounts.erase(accounts.begin() + i);
+                saveAllAccounts(accounts);
+                cout << "\n ? Account deleted successfully.\n";
+                break;
+            }
+            i++;
+        }
+        if (!found) {
+            cout << "\n ? Account not found.\n";
+        }
+    }
+
+    void addEmployee() {
+        int empId = generateEmployeeID();
+        string name, position;
+        double salary;
+
+        cout << "\nEnter employee name: ";
+        cin.ignore();
+        getline(cin, name);
+        cout << "Enter position: ";
+        getline(cin, position);
+        cout << "Enter salary (PKR): ";
+        cin >> salary;
+
+        Employee newEmp(empId, name, position, salary);
+        vector<Employee> emps = loadAllEmployees();
+        emps.push_back(newEmp);
+        saveAllEmployees(emps);
+
+        cout << "\n ? Employee added with ID: " << empId << "\n";
+    }
+
+    void viewAllEmployees() {
+        vector<Employee> emps = loadAllEmployees();
+        if (emps.empty()) {
+            cout << "\nNo employee records found.\n";
+            return;
+        }
+
+        cout << "\n----- All Employees -----\n";
+        size_t i = 0;
+        while (i < emps.size()) {
+            emps[i].display();
+            i++;
+        }
+    }
+
+    void modifyEmployee() {
+        int empId;
+        cout << "\nEnter Employee ID to modify: ";
+        cin >> empId;
+
+        vector<Employee> emps = loadAllEmployees();
+        bool found = false;
+        size_t idx = 0;
+        while (idx < emps.size()) {
+            if (emps[idx].getEmpID() == empId) {
+                found = true;
+                string newName, newPos;
+                double newSalary;
+
+                cout << "\nCurrent Name: " << emps[idx].getName() << "\n";
+                cout << "Enter new name: ";
+                cin.ignore();
+                getline(cin, newName);
+                cout << "Enter new position: ";
+                getline(cin, newPos);
+                cout << "Enter new salary (PKR): ";
+                cin >> newSalary;
+
+                emps[idx].setName(newName);
+                emps[idx].setPosition(newPos);
+                emps[idx].setSalary(newSalary);
+                saveAllEmployees(emps);
+                cout << "\n ? Employee updated successfully.\n";
+                break;
+            }
+            idx++;
+        }
+        if (!found) {
+            cout << "\n ? Employee not found.\n";
+        }
+    }
+
+    void deleteEmployee() {
+        int empId;
+        cout << "\nEnter Employee ID to delete: ";
+        cin >> empId;
+
+        vector<Employee> emps = loadAllEmployees();
+        bool found = false;
+        size_t i = 0;
+        while (i < emps.size()) {
+            if (emps[i].getEmpID() == empId) {
+                found = true;
+                emps.erase(emps.begin() + i);
+                saveAllEmployees(emps);
+                cout << "\n ? Employee deleted successfully.\n";
+                break;
+            }
+            i++;
+        }
+        if (!found) {
+            cout << "\n ? Employee not found.\n";
+        }
+    }
+
+    void viewAllTransactions() {
+        ifstream inFile("transactions.txt");
+        if (!inFile.is_open()) {
+            cout << "\nNo transactions found.\n";
+            return;
+        }
+
+        cout << "\n----- All Transactions -----\n";
+        string line;
+        getline(inFile, line); // Skip header
+        while (getline(inFile, line)) {
+            if (line.empty()) continue;
+            vector<string> tokens;
+            string token;
+            istringstream iss(line);
+            while (getline(iss, token, '|')) {
+                tokens.push_back(token);
+            }
+            if (tokens.size() < 3) continue;
+            
+            int accNo;
+            double amt;
+            stringstream(tokens[0]) >> accNo;
+            string type = tokens[1];
+            stringstream(tokens[2]) >> amt;
+            
+            cout << "Account: " << accNo
+                 << " | Type: " << type
+                 << " | Amount: PKR " << fixed << setprecision(2) << amt << "\n";
+        }
+        inFile.close();
+        cout << "------------------------------------------------------------\n";
+    }
+
  
