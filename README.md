@@ -4,7 +4,7 @@
 
 ## Overview
 
-This project is a *fully-featured, real-world inspired Bank Management System, developed using **C++ and Object-Oriented Programming principles. Designed to mimic online and ATM-based banking functionality, it includes complete role-based access for **Admin* and *Customers*, secure login systems, and transaction features with persistent file handling.  
+This project is a *fully-featured, real-world inspired Bank Management System, developed using  **C++ and Object-Oriented Programming principles. Designed to mimic online and ATM-based banking functionality, it includes complete role-based access for **Admin* and *Customers*, secure login systems, and transaction features with persistent file handling.  
 
 This system is suitable for academic submission, portfolio showcase, and concept demonstration in banking automation projects.
 
