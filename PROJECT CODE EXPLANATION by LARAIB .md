@@ -1,4 +1,4 @@
-Step 1: generateEmployeeID()
+Step 1: generateEmployeeID() 
 
 ➤ Purpose:
 
