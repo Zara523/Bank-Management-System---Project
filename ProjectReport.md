@@ -230,13 +230,13 @@ Interest Rate  : 5.00%
 
 **Submitted BY:**
 ```
-    ` Rubab Waheed `
-     `Zara Arshad`
-     `Laraib Zahoor`
+     Rubab Waheed 
+     Zara Arshad
+     Laraib Zahoor
 ```
 **Submitted TO:**
 ```
-     `Sir Uzair Hassan`
+     Sir Uzair Hassan
 ```
 
 > This report thoroughly documents all 969 lines of code, demonstrating complete understanding of the system's architecture, functionality, and implementation details. 
