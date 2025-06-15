@@ -1,8 +1,6 @@
 ### **Project Report: Bank Management System**   
 **(C++ Object-Oriented Programming )**  
-
 ---
-
 #### **1. Introduction**  
 The Bank Management System is a console-based application developed in C++ that simulates real banking operations. It features role-based access (Admin, Customer, ATM), persistent data storage using text files, and comprehensive transaction logging. The system handles account management, financial transactions, employee records, and ATM operations.
 
