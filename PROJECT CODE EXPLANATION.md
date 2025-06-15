@@ -203,3 +203,13 @@ Manage customers: add, view, modify, reset PIN, delete.
 Manage employees: add, view, modify, delete.
 
 View all transaction history .
+
+✅ Final Summary:
+
+This BankSystem class gives full control to the Admin to:
+
+Manage customers: add, view, modify, reset PIN, delete.
+
+Manage employees: add, view, modify, delete.
+
+View all transaction history .
