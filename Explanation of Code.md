@@ -1,4 +1,4 @@
-###Code:
+### Code:
 ```cpp
      void viewATMTransactions() {
         ifstream inFile("atm_transactions.txt");
