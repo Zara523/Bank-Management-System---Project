@@ -1,5 +1,5 @@
 
-# Bank Management System – C++ OOP Project
+# 💳 Bank Management System – C++ OOP Project
 
 ## ✅ Header Files
 
@@ -11,8 +11,6 @@
 #include <vector>
 #include <iomanip>
 #include <ctime>
-
-
 These standard C++ headers provide support for:
 
 iostream: Input/output operations
@@ -53,16 +51,16 @@ Account(int accNo, const string& nm, int p, double bal);
 Default and parameterized constructors initialize account objects.
 
 🧾 Getters and Setters
-Provide access and modification of private members.
+Used to access and modify private data members.
 
 🧠 Core Functional Methods
 deposit(double amount): Adds amount to balance
 
-withdraw(double amount): Deducts amount from balance if sufficient funds are available
+withdraw(double amount): Deducts amount from balance if sufficient funds
 
 display(): Shows all account details
 
-toString(): Converts account details to a |-separated string for file storage
+toString(): Converts account details to a |-separated string
 
 fromString(string line): Parses a string to create an Account object
 
@@ -80,7 +78,7 @@ double salary;
 🔧 Key Methods
 display(): Outputs employee details
 
-toString() / fromString(): Serialization and deserialization from file format
+toString() / fromString(): Converts to and from string for file storage
 
 ✅ 3. Admin Class
 Used for admin authentication.
@@ -100,25 +98,25 @@ Checks input credentials against hardcoded ones.
 
 ✅ 4. Utility Functions
 🔹 generateAccountNumber()
-Generates a unique new account number by checking the maximum account number in customers.txt.
+Generates a new unique account number by checking the max in customers.txt.
 
 🔹 loadAllAccounts()
-Loads all accounts from the customers.txt file into a vector of Account objects.
+Loads all accounts from file into a vector of Account objects.
 
 🔹 saveAllAccounts(vector<Account>)
-Writes the list of Account objects back to the file with a header and formatted output.
+Writes the list of Account objects to customers.txt.
 
 🔹 logTransaction(int accNo, string type, double amt)
-Logs basic deposit/withdrawal actions into transactions.txt.
+Logs deposit/withdrawal into transactions.txt.
 
 🔹 logATMTransaction(int accNo, string type, double amt)
-Logs ATM-based transactions with a date into atm_transactions.txt.
+Logs ATM-based actions into atm_transactions.txt.
 
 🔹 logDeletedAccount(int accNo, string name)
-Records deleted accounts along with the deletion date into deleted_accounts.txt.
+Records account deletion into deleted_accounts.txt.
 
 🔹 displayLastTransactions(int accNo)
-Reads and displays the last 5 transactions for a specific account from transactions.txt.
+Shows last 5 transactions from transactions.txt.
 
 ✅ File Structure and Formats
 📄 customers.txt
@@ -142,11 +140,11 @@ Copy
 Edit
 AccountNumber|Name|DeletionDate
 ✅ Code Design Highlights
-Encapsulation: All sensitive data is kept private.
+Encapsulation: All sensitive data is private
 
-Data Persistence: Data is saved to and loaded from files.
+Data Persistence: Uses files for storing data
 
-Date Logging: Uses ctime to record transaction dates.
+Date Logging: Uses ctime for transaction dates
 
-Error Handling: Invalid operations are gracefully handled (e.g., empty lines or invalid input).
+Error Handling: Gracefully handles invalid inputs and file errors
 
