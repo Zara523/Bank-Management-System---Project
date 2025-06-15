@@ -1,3 +1,4 @@
+```cpp
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -967,3 +968,4 @@ int main() {
     bank.run();
     return 0;
 }                                                                                                                                                                    
+```
