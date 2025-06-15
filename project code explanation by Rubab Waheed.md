@@ -503,7 +503,7 @@ Project Directory Structure:
 │   ├── main.cpp
 │   ├── BankSystem.cpp
 │   └── BankSystem.h
-├── data/
+├── data/ 
 │   ├── accounts.txt
 │   └── atm_transactions.txt
 ├── README.md
