@@ -498,15 +498,3 @@ g++ -std=c++17 -o bank_system main.cpp
 This bank management system provides a solid foundation for basic banking operations with clear separation between admin, customer, and ATM functionalities. While suitable for academic purposes, it requires security enhancements before production use.
 
 ```
-Project Directory Structure:
-├── src/
-│   ├── main.cpp
-│   ├── BankSystem.cpp
-│   └── BankSystem.h
-├── data/ 
-│   ├── accounts.txt
-│   └── atm_transactions.txt
-├── README.md
-└── Makefile
-```
-
