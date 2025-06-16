@@ -547,7 +547,7 @@ void logTransaction(int accNo, string type, double amt) {
 5. **UX**  
     Add input validation for numeric fields
 
-```
+
 
 > **Note**: The complete implementation requires supporting classes (`Account`, `Admin`) and file handling details not shown in the snippet ,they are in other snippets.
 
